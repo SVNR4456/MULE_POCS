@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:kafka="http://www.mulesoft.org/schema/mule/kafka" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/kafka/current/mule-kafka.xsd">
+	<kafka:producer-config name="Apache_Kafka_Producer_configuration" doc:name="Apache Kafka Producer configuration" doc:id="13a303e3-c892-4da3-a247-9cf885e92975" >
+		<kafka:producer-plaintext-connection batchSizeUnit="MB" bufferSizeUnit="MB" receiveBufferSizeUnit="MB" sendBufferSizeUnit="MB">
+			<kafka:bootstrap-servers >
+				<kafka:bootstrap-server value="localhost:9092" />
+			</kafka:bootstrap-servers>
+		</kafka:producer-plaintext-connection>
+	</kafka:producer-config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="d1029f66-6777-41e5-8e76-b5430e120b36">
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="kafka_pocFlow" doc:id="d0c0d306-c3ae-4f10-bc4c-b9733cfb8138" >
+		<http:listener doc:name="Listener" doc:id="b7dd1dee-7983-49b1-bfae-429e7f7cf330" config-ref="HTTP_Listener_config" path="kafka_listener"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f2b8a64f-8e9f-450b-8846-829f6338e8f6" />
+	</flow>
+</mule>
